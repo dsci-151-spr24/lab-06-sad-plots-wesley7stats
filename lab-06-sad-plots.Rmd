@@ -1,5 +1,6 @@
 ---
 title: "Lab 06 - Take a sad plot and make it better"
+author: "Wesley Anderson" 
 output: 
   tufte::tufte_html:
     css: ../lab.css
@@ -51,7 +52,7 @@ install.packages("devtools")
 devtools::install_github("tidyverse/dsbox")
 ```
 
-```{r eval = TRUE, message = FALSE}
+```{r eval = true, message = FALSE}
 library(tidyverse) 
 library(dsbox) 
 ```
