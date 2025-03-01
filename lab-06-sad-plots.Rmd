@@ -188,15 +188,34 @@ knitr::include_graphics("img/fisheries.png")
 ```
 
 4.  Can you help them make improve it? First, brainstorm how you would improve it. Then create the improved visualization and write up the changes/decisions you made as bullet points. It's ok if some of your improvements are aspirational, i.e. you don't know how to implement it, but you think it's a good idea.
-
+***I would replace the pi charts with something more easier to analyse data, possibly a bar graph***
 Load the data.
 
-```{r load-data-fisheries, eval = FALSE}
-fisheries <- read_csv("data/fisheries.csv")
+```{r load-data-fisheries, eval = TRUE}
+fisheries <- read_csv("data/fisheries.csv", show_col_types = FALSE)
 ```
 
 5.  Create a new data visualisation for these data that implements the improvements you proposed in the previous exercise (or many of them as you can).
 
+
+```{r}
+fisheries %>%
+  filter(total >=1000000) %>%
+  mutate(country =fct_reorder(country,aquaculture, min)) %>%
+  select(-total) %>%
+  pivot_longer(cols = -country, names_to = "type") %>%
+  ggplot(aes(y=country, x=value, fill = type))+
+  geom_bar(stat="identity", position = "fill") +
+  scale_fill_manual(values=c("#9ec", "#3182bd")) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "top") +
+  labs(title = "Fishing by Country") +
+  xlab("Proportion") +
+  ylab("")
+
+
+
+```
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
 # Wrapping up
