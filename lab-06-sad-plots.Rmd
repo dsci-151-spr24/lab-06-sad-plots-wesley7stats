@@ -52,7 +52,7 @@ install.packages("devtools")
 devtools::install_github("tidyverse/dsbox")
 ```
 
-```{r eval = true, message = FALSE}
+```{r eval = TRUE, message = FALSE}
 library(tidyverse) 
 library(dsbox) 
 ```
@@ -126,7 +126,7 @@ staff_long
 And now let's plot is as a line plot.
 A possible approach for creating a line plot where we color the lines by faculty type is the following:
 
-```{r fig.width = 10, fig.fullwidth = TRUE}
+```{r fig.width = 10, fig.fullwidth = TRUE, eval=FALSE}
 staff_long %>%
   ggplot(aes(x = year, y = value, color = faculty_type)) +
   geom_line()
@@ -140,6 +140,12 @@ We can fix this using the `group` aesthetic following.
 staff_long %>%
   ggplot(aes(x = year, y = value, group = faculty_type, color = faculty_type)) +
   geom_line()
+  labs(
+    title = "Faculty Trend over time (1975-2011)",
+    xlab = "",
+    ylab = "" 
+  ) +
+  theme(legend.title = element_blank())
 ```
 
 1.  Include the line plot you made above in your report and make sure the figure width is large enough to make it legible.
@@ -149,6 +155,21 @@ staff_long %>%
     What changes would you propose making to this plot to tell this story and why.
 
 3.  Implement the changes you proposed in the previous exercise.
+
+```{r fig.width = 10, fig.fullwidth = TRUE}
+staff_long %>%
+  ggplot(aes(x = year, y = value, group = faculty_type, color = faculty_type)) +
+  geom_line()
+  labs(
+    title = "Faculty Trend over time (1975-2011)",
+    subtitle= "Part-Time Faculty Increase",
+    xlab = "",
+    ylab = "" 
+)+
+theme(legend.title = element_blank()) +
+scale_color_manual(values = c( rep("gray", 4), "red"))
+  
+```
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
